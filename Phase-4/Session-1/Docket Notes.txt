@@ -1,0 +1,165 @@
+***********************************************************************
+STEP:1 BASIC IN DOCKER
+***********************************************************************
+> sudo docker version
+> sudo docker -v
+> sudo docker --version
+
+output: 19.03.15
+
+DOCKER CONTAINERS:
+----------------------------
+> sudo docker container ls
+
+DOCKER IMAGES:
+----------------------------
+> sudo docker images 
+
+
+DOCKER VOLUME LS:
+----------------------------
+> sudo docker volume ls
+
+**************************************************************************
+STEP:2 PULL DOCKER IMAGES FROM DOCKER 
+**************************************************************************
+EXERCISE:1
+
+STEP:1 PULL THE IMAGE: 
+-----------------------
+> sudo docker pull docker/getting-started
+
+STEP:2 RUN THE IMAGE ON CONTAINER WITH SPECIFIC PORT NUMBER
+-------------------------------------------------------------
+> sudo docker run -p 80:80 docker/getting-started
+
+STEP:3 EXIT THE CONTAINER
+---------------------------
+> exit
+
+STEP:4 RUNNUNG STATUS OF CONTAINER
+--------------------------------
+> sudo docker ps -a
+
+STEP:5 DETACH THE CONTAINER
+---------------------------------
+> sudo docker run -d -p 80:80 docker/getting-started
+
+STEP:5 STOP CONTAINER
+----------------------------------
+check the name of the container using 
+> sudo docker container ls
+check the name and use the same name to stop the container
+> sudo docker stop name_of_container
+
+STEP:6 REMOVE CONTAINER
+----------------------------------
+check the name of the container using 
+> sudo docker container ls
+check the name and use the same name to stop the container
+> sudo docker rm name_of_container
+> sudo docker rm -f name_of_container
+
+
+STEP:7 REMOVE IMAGES
+-----------------------------------
+> sudo docker rmi name_of_image
+>  sudo docker rmi -f name_of_image
+
+Exercise:2 
+-----------------------------------------------------------
+pull the ready images available
+
+> sudo dokcer pull ubuntu
+
+> sudo docker pull mysql
+
+> sudo docker pull mysql:5.7
+
+
+**************************************************************************
+STEP:3 PULL GIT HUB IMAGES(CUSTOM IMAGES)
+**************************************************************************
+
+> git clone https://github.com/Nikunj-Java/docker_master.git
+> ls (to check availabilty of folders)
+> cd docker_master
+
+
+------let's prepare the image in a docker comntainer-----------
+> sudo docker build -t myimage .    (. is medatory)
+> sudo docker images
+
+
+-----Let's run the container ------------------
+> sudo docker run -d --name mycontainer -p 80:80 myimage
+> sudo docker run -d -p 80:80 myimage
+
+> curl localhost
+
+
+index.php file will be opened here
+
+
+
+*****************************************************************************
+STEP:4 PUSH THE IMAGES TO THE DOCKER HUB
+*****************************************************************************
+
+> FOLLOW STEP 3
+> sudo docker tag myimage nikunj0510/cisco_image
+
+> sudo docker login
+	username:
+	password:       (The password that u will enter will not be visible due to security reasons)
+
+	message: successfully logged in
+
+> sudo docker push nikunj0510/cisco_image
+
+
+
+goto> docker.com check your respositories
+
+ new repository will be prepared automatically with the name: cisco_image
+
+
+
+***************************************************************************
+STEP:5 CREATING MYSQL DATABASE IN DOCKER CONTAINER
+***************************************************************************
+
+> sudo docker pull mysql
+> sudo docker images
+> sudo docker run --name my-app-db -e MYSQL_ROOT_PASSWORD=password -d -p 3306:3306 mysql
+
+if its not working remove the container
+sudo docker rm my-app-db
+> sudo docker run --name my-app-db -e MYSQL_ROOT_PASSWORD=password -d -p 3305:3306 mysql
+
+verify the running container
+> sudo docker ps
+
+connect to mysql DataBase
+----------------------------
+> mysql -u root -h 127.0.0.1 -P 3305 -p
+
+enter password: passsword       (password will not be visible to you)
+
+if all ok u will see mysql tab like 'mysql>'
+
+that means we are ready to go and work with Mysql On Docker container
+
+
+> show databases;
+
+create database
+---------------------------------
+> create database cisco;
+
+create table Customers
+---------------------------------
+create table Customers(cid int primary key auto_increment, name varchar(20), phone varchar(20),email varchar(100));
+
+Insert Some Records
+-----------------------
